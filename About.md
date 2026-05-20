@@ -55,3 +55,17 @@ src/main/java
   └─ Application.java
 [cite_start]
 http://googleusercontent.com/immersive_entry_chip/
+
+---
+
+## 🌐 Compatibilidade Multiplataforma
+
+Todas as ferramentas que precisam ser instaladas no sistema devem ter suporte oficial para **Windows** e **Linux (Debian/Ubuntu)**:
+
+| Ferramenta         | Windows | Linux (Debian/Ubuntu) | Observação                              |
+|--------------------|:-------:|:---------------------:|-----------------------------------------|
+| Java 17 (JDK)      | ✅      | ✅                    | Instalar via [Adoptium](https://adoptium.net) |
+| Maven (via wrapper)| ✅      | ✅                    | Usar `mvnw.cmd` / `./mvnw` — não requer instalação global |
+| Node.js + npm      | ✅      | ✅                    | Instalar via [nodejs.org](https://nodejs.org) ou `nvm` |
+| Git                | ✅      | ✅                    | [git-scm.com](https://git-scm.com)     |
+| MySQL              | ✅      | ✅                    | Ambiente de desenvolvimento local      |
