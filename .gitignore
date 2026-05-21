@@ -1,3 +1,4 @@
 # Variáveis de ambiente — ignorar o real, rastrear o exemplo
 .env
 !.env.example
+.vscode/

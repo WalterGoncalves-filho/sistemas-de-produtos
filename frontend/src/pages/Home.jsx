@@ -13,7 +13,7 @@ export default function Home() {
   const carregar = async () => {
     try {
       const { data } = await getProdutos()
-      setProdutos(data)
+      setProdutos(Array.isArray(data) ? data : [])
     } catch {
       Swal.fire('Erro', 'Não foi possível carregar os produtos.', 'error')
     } finally {
