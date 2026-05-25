@@ -2,3 +2,6 @@
 .env
 !.env.example
 .vscode/
+
+# Imagens soltas na raiz
+*.png
