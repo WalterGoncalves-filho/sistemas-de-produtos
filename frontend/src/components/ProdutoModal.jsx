@@ -1,17 +1,31 @@
 import { useState, useEffect } from 'react'
 
+const toMask = (value) => {
+  const digits = String(value).replace(/\D/g, '').replace(/^0+/, '') || '0'
+  const padded = digits.padStart(3, '0')
+  const cents = padded.slice(-2)
+  const reais = padded.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+  return `${reais},${cents}`
+}
+
+const fromMask = (masked) => parseFloat(masked.replace(/\./g, '').replace(',', '.')) || 0
+
 export default function ProdutoModal({ produto, onSave, onClose }) {
-  const [form, setForm] = useState({ nome: '', preco: '', estoque: '' })
+  const [form, setForm] = useState({ nome: '', preco: '0,00', estoque: '' })
 
   useEffect(() => {
-    if (produto) setForm({ nome: produto.nome, preco: produto.preco, estoque: produto.estoque })
+    if (produto) setForm({ nome: produto.nome, preco: toMask(Math.round(produto.preco * 100)), estoque: produto.estoque })
   }, [produto])
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    if (name === 'preco') return setForm({ ...form, preco: toMask(value) })
+    setForm({ ...form, [name]: value })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    onSave({ ...form, preco: parseFloat(form.preco), estoque: parseInt(form.estoque) })
+    onSave({ ...form, preco: fromMask(form.preco), estoque: parseInt(form.estoque) })
   }
 
   return (
@@ -37,9 +51,8 @@ export default function ProdutoModal({ produto, onSave, onClose }) {
             <label className="block text-sm font-medium text-gray-700 mb-1">Preço (R$)</label>
             <input
               name="preco"
-              type="number"
-              step="0.01"
-              min="0.01"
+              type="text"
+              inputMode="numeric"
               value={form.preco}
               onChange={handleChange}
               required
